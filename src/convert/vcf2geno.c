@@ -246,8 +246,7 @@ void read_cnv_info(char *token, char **infos, char *szbuff, int j)
         int ip;
         token = strtok(szbuff, SEP);
         if (!token) {
-                Rprintf("Error while reading SNPs informations at line %d.\n",
-                       j);
+                Rprintf("Error while reading SNPs informations at line %d, column %d.\n", j, 0);
                 error(NULL);
         }
 
@@ -255,10 +254,9 @@ void read_cnv_info(char *token, char **infos, char *szbuff, int j)
         for (ip = 1; ip < 9; ip++) {
                 token = strtok(NULL, SEP);
                 if (!token) {
-                        Rprintf
-                            ("Error while reading SNPs informations at line %d.\n",
-                             j);
-                        error(NULL);
+	                Rprintf("Error while reading SNPs informations at line %d, column %d.\n", j, ip);
+    	            Rprintf("Last read token: %s\n", infos[ip-1]);
+   	                error(NULL);
                 }
                 strcpy(infos[ip], token);
         }
